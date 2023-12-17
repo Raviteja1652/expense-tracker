@@ -1,15 +1,27 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react';
+import './Signup.css';
 
 const Signup = () => {
+    const [onToggle, setOnToggle] = useState(true);
     const emailref = useRef('')
     const passref = useRef('')
     const cnfPassref = useRef('')
+
+    const swithModeHandler = () => {
+        setOnToggle(prev => !prev)
+    }
     const submitHandler = (e) => {
         e.preventDefault();
         const enteredEmail = emailref.current.value
         const enteredPass = passref.current.value
         const enteredCnfPass = cnfPassref.current.value
-        fetch('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBAX17nBJFg6o4XXPR5zeqGA_dM1JM5XrM', {
+        let url;
+        if(onToggle){
+            url = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBAX17nBJFg6o4XXPR5zeqGA_dM1JM5XrM'
+        } else {
+            url = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBAX17nBJFg6o4XXPR5zeqGA_dM1JM5XrM'
+        }
+        fetch(url, {
             method: 'POST',
             body: JSON.stringify({
                 email: enteredEmail,
@@ -39,24 +51,29 @@ const Signup = () => {
     };
 
   return (
-    <div>
-        <form onSubmit={submitHandler}>
+    <div className='form-box'>
+        <div className='button-box'>
+            <div id={onToggle ? 'btn' : 'btn-login'} />
+            <button type='button' className='toggle-button' onClick={swithModeHandler}>Signup</button>
+            <button type='button' className='toggle-button' onClick={swithModeHandler}>Login</button>
+        </div>
+        <form className='input-group' id='signup' onSubmit={submitHandler}>
             <div>
                 <label htmlFor='email'>Email Id: </label>
-                <input type='email' id='email' ref={emailref}></input>
+                <input type='email' id='email' ref={emailref} className='input-field'></input>
             </div>
             <div>
                 <label htmlFor='password'>Password: </label>
-                <input type='password' id='password' ref={passref}></input>
+                <input type='password' id='password' ref={passref} className='input-field'></input>
             </div>
             <div>
                 <label htmlFor='cnfpass'>Confirm Password: </label>
-                <input type='password' id='cnfpass' ref={cnfPassref}></input>
+                <input type='password' id='cnfpass' ref={cnfPassref} className='input-field'></input>
             </div>
-            <button type='Submit'>Signup</button>
+            <button type='Submit' className='submit-button'>{onToggle ? 'Signup' : 'Login'}</button>
         </form>
     </div>
   )
 }
 
-export default Signup
+export default Signup;
