@@ -1,0 +1,16 @@
+.profile-form {
+    position: relative;
+    margin: 6% auto;
+    padding: 20px;
+}
+
+button{
+    cursor: pointer;
+    background: #7a1818;
+    color: white;
+}
+/* 
+.form {
+    position: relative;
+
+} */
