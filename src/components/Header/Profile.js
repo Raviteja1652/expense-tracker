@@ -33,7 +33,9 @@ const Profile = () => {
                     throw new Error(errmsg)
                 })
             }
-        }).then(data => console.log(data))
+        }).then(data => {ctx.update(data.localId)
+            console.log(data)
+        })
         .catch(err => alert(err))
     }
   return (
@@ -42,9 +44,9 @@ const Profile = () => {
         <div>
         <form className='form'>
             <label htmlFor='full-name'>Full name: </label>
-            <input type='text' id='full-name' ref={fullNameRef}></input>
+            <input type='text' id='full-name' value={ctx.updatedData.displayName} ref={fullNameRef}></input>
             <label htmlFor='photo'>Profile Photo: </label>
-            <input type='url' id='photo' ref={urlRef}></input><br></br>
+            <input type='url' id='photo' value={ctx.updatedData.photoUrl} ref={urlRef}></input><br></br>
             <button type='submit' onClick={submitHandler}>Update</button>
         </form>
         </div>

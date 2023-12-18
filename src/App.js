@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import Signup from "./components/Auth/Signup";
 import Header from "./components/Header/Header";
 import cartContext from "./store/cart-context";
@@ -7,6 +7,9 @@ import Home from "./components/Header/Home";
 import Profile from "./components/Header/Profile";
 function App() {
   const ctx = useContext(cartContext);
+  useEffect(() => {
+    ctx.onLoad()
+  }, [])
   return (
     <div>
         <Header />
