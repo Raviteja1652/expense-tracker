@@ -18,7 +18,7 @@ const Header = () => {
             {ctx.isLoggedIn && <Navbar.Brand as={Link} to='/logout' onClick={() => ctx.logout()}>Logout</Navbar.Brand>}
           </Container>
         </Navbar>
-    </>
+    </> 
   )
 }
 

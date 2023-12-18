@@ -23,7 +23,7 @@ const ContextProvider = (props) => {
       setToken(storedToken)
       const localId = localStorage.getItem('localId')
       setLocalId(localId)
-      fetch('https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyBAX17nBJFg6o4XXPR5zeqGA_dM1JM5XrM', {
+      fetch('https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyBAX17nBJFg6o4XXPR5zeqGA_dM1JM5XrM', {
             method: 'POST',
             body: JSON.stringify({
                 idToken: token,
