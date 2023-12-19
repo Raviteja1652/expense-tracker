@@ -1,20 +1,21 @@
-import React, { useRef } from 'react';
+import React, { useContext, useRef } from 'react';
 import './Expenses.css';
-import ExpenseItem from './ExpenseItem';
+import cartContext from '../../store/cart-context';
 
 const Expenses = (props) => {
+    const ctx = useContext(cartContext)
     const amountRef = useRef('')
     const descRef = useRef('')
     const catgRef = useRef('')
     const submitHandler = (e) => {
         e.preventDefault();
         const enteredData = {
-            id: Math.random().toString(),
             amount: amountRef.current.value,
             description: descRef.current.value,
             category: catgRef.current.value,
         }
-        props.onSubmitData(enteredData)
+        // props.onSubmitData(enteredData)
+        ctx.onSubmitExpenseData(enteredData)
     }
   return (
     <div>
@@ -38,6 +39,8 @@ const Expenses = (props) => {
                </select>
             </div>
             <button type='submit' className='expenses-button' onClick={submitHandler}>Add</button>
+            {/* <button type='submit' className='expenses-button' onClick={(e) => { e.preventDefault()
+                props.onData()}}>Get</button> */}
         </form>
     </div>
   )
