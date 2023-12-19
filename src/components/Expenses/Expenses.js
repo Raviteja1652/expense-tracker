@@ -1,8 +1,18 @@
-import React, { useContext, useRef } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import './Expenses.css';
 import cartContext from '../../store/cart-context';
+import ExpenseItem from './ExpenseItem';
 
 const Expenses = (props) => {
+    const [toEditExpense, setToEditExpense] = useState(null)
+    useEffect(() => {
+        if (toEditExpense) {
+            amountRef.current.value = toEditExpense.amount;
+            descRef.current.value = toEditExpense.description;
+            catgRef.current.value = toEditExpense.category;
+        }
+    }, [toEditExpense])
+
     const ctx = useContext(cartContext)
     const amountRef = useRef('')
     const descRef = useRef('')
@@ -15,8 +25,17 @@ const Expenses = (props) => {
             category: catgRef.current.value,
         }
         // props.onSubmitData(enteredData)
-        ctx.onSubmitExpenseData(enteredData)
-    }
+        if(toEditExpense) {
+            ctx.editExpense(enteredData, toEditExpense.id_one)
+        } else {
+            ctx.onSubmitExpenseData(enteredData)
+        }
+        setToEditExpense(null)
+    };
+    const editExpenseHandler =(id) => {
+        const expenseToEdit = ctx.savedExpenses.find(expense => expense.id_one === id)
+        setToEditExpense(expenseToEdit)
+    };
   return (
     <div>
         <form className='expenses-form'>
@@ -42,6 +61,9 @@ const Expenses = (props) => {
             {/* <button type='submit' className='expenses-button' onClick={(e) => { e.preventDefault()
                 props.onData()}}>Get</button> */}
         </form>
+        <div>
+            <ExpenseItem editExpense={editExpenseHandler}/>
+        </div>
     </div>
   )
 }

@@ -8,6 +8,8 @@ const ExpenseItem = (props) => {
       <h4>{expense.amount}</h4>
       <span>{expense.description}</span>
       <span>{'  '}{expense.category}</span>
+      <button onClick={() => props.editExpense(expense.id_one)}>Edit</button>
+      <button onClick={() => ctx.deleteExpense(expense.id_one)}>Delete</button>
     </li>
   ))
   return (

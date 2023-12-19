@@ -107,7 +107,33 @@ const ContextProvider = (props) => {
         setExpensesData(filteredData)
         console.log(data)
       } catch(err) {console.log(err)}
-    }
+    };
+    const deleteExpenseHandler = async(id) => {
+      try{
+        const delData = await axios.delete(`https://react-http-7e214-default-rtdb.firebaseio.com/expensesData/${id}.json`)
+        const data = await delData.data
+        console.log(data)
+        console.log('Succesfully Deleted')
+      } catch(err) {console.log(err)}
+      setExpensesData((prev) => {
+        const updatedExpenses = prev.filter(expense => expense.id_one !== id)
+        return updatedExpenses;
+      })
+    };
+    const editExpenseHandler = async(enteredData, id) => {
+      try{
+        const res = await axios.put(`https://react-http-7e214-default-rtdb.firebaseio.com/expensesData/${id}.json`, enteredData)
+        const data = await res.data
+        console.log(data)
+        const index = expensesData.findIndex(expense => expense.id_one === id);
+        const updatedExpenses = [...expensesData];
+        updatedExpenses[index] = {...enteredData, id_one: id}
+        setExpensesData(updatedExpenses);
+      } catch(err) {
+        console.log(err)
+      }
+    };
+
     const contextItems = {
         token: token,
         localId: localId,
@@ -119,6 +145,8 @@ const ContextProvider = (props) => {
         logout: logoutHandler,
         onLoad: onPageLoad,
         onSubmitExpenseData: submitExpenseDataHandler,
+        deleteExpense: deleteExpenseHandler,
+        editExpense: editExpenseHandler,
     }
   return (
     <cartContext.Provider value={contextItems}>{props.children}</cartContext.Provider>

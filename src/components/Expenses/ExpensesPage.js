@@ -4,6 +4,7 @@ import ExpenseItem from './ExpenseItem';
 import axios from 'axios';
 
 const ExpensesPage = () => {
+  const [toBeEditedId, setToBeEditedId] = useState('')
   // const [expenses, setExpenses] = useState([])
   // const dataSubmitHandler = (enteredExpense) => {
   //     // setExpenses(prev => {return [...prev, enteredExpense]})
@@ -23,11 +24,13 @@ const ExpensesPage = () => {
   //   ).catch(err => console.log(err))
   // };
   // Previous props on <Expenses> and <ExpenseItem>: onSubmitData={dataSubmitHandler}, items={expenses}
-    
+  const editExpenseHandler =(id) => {
+    setToBeEditedId(id)
+  }
   return (
     <div>
-        <Expenses />
-        <ExpenseItem />
+        <Expenses idToEdit={toBeEditedId} />
+        <ExpenseItem editExpense={editExpenseHandler}/>
     </div>
   )
 }
