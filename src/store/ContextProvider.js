@@ -7,6 +7,7 @@ const ContextProvider = (props) => {
     const [localId, setLocalId] = useState('')
     const [updatedData, setUpdatedData] = useState({}) //profile Data
     const [expensesData, setExpensesData] = useState([])
+    const [premiumActive, setPremiumActive] = useState(false)
     const isLoggedIn = !!token
 
     const loginHandler = (token) => {
@@ -133,6 +134,9 @@ const ContextProvider = (props) => {
         console.log(err)
       }
     };
+    const premiumHandler = () => {
+      setPremiumActive(true)
+    }
 
     const contextItems = {
         token: token,
@@ -147,6 +151,8 @@ const ContextProvider = (props) => {
         onSubmitExpenseData: submitExpenseDataHandler,
         deleteExpense: deleteExpenseHandler,
         editExpense: editExpenseHandler,
+        premium: premiumHandler,
+        premiumActive: premiumActive,
     }
   return (
     <cartContext.Provider value={contextItems}>{props.children}</cartContext.Provider>

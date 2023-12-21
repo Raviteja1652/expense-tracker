@@ -12,10 +12,12 @@ const Header = () => {
             <Navbar.Brand>Expense Tracker</Navbar.Brand>
             <Navbar.Brand as={Link} to='/'>welcome</Navbar.Brand>
             <Navbar.Brand as={Link} to='/Home'>Home</Navbar.Brand>
-            <Navbar.Brand as={Link} to='/products'>Products</Navbar.Brand>
+            {ctx.isLoggedIn && <Navbar.Brand as={Link} to='/expenses'>Expenses</Navbar.Brand>}
             <Navbar.Brand as={Link} to='/about'>About Us</Navbar.Brand>
             {!ctx.isLoggedIn && <Navbar.Brand as={Link} to='/login'>Login</Navbar.Brand>}
             {ctx.isLoggedIn && <Navbar.Brand as={Link} to='/logout' onClick={() => ctx.logout()}>Logout</Navbar.Brand>}
+            {ctx.premiumActive && <Navbar.Brand as={Link} to='/premium'>Premium</Navbar.Brand>}
+
           </Container>
         </Navbar>
     </> 

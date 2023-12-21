@@ -23,6 +23,9 @@ const Expenses = (props) => {
             amount: amountRef.current.value,
             description: descRef.current.value,
             category: catgRef.current.value,
+        };
+        if (Number(amountRef.current.value) > 10000){
+            ctx.premium()
         }
         // props.onSubmitData(enteredData)
         if(toEditExpense) {
